@@ -6,7 +6,7 @@ import CSAFWrapper from './CSAFWrapper';
 
 function App() {
   return (
-    <div className="App">
+	  <div className="App">
 	  <header className="App-header">
 	  <h2>CSAFer</h2>
 	  </header>
