@@ -2,7 +2,7 @@ import React from "react";
 import {format} from 'date-fns'
 import { useState, useEffect } from "react";
 import GithubAPI from './GithubAPI';
-import { Card, Table, Tab, Nav, Alert, Button, InputGroup, Form, ListGroup } from "react-bootstrap";
+import { Table, Button, InputGroup, Form } from "react-bootstrap";
 
 
 const file_regex = /csaf_files\/OT\/white\/(?<year>\d{4})\/(?<name>icsa-\d{2}-\d{3}-\d{2}\.json)/
@@ -38,11 +38,11 @@ const CSAFSearch = (props) => {
 	    let updated = entry.updated;
 	    
 	    
-	    ot.push({name: name, type: type, published: formatDate(updated), title: title, updated: formatDate(updated), id: entry.id});
+	    ot.push({name: name, type: type, published: formatDate(published), title: title, updated: formatDate(updated), id: entry.id});
 	});
 
 
-	if (type == "OT") {
+	if (type === "OT") {
 	    setOtVuls(ot);
 	} else {
 	    setItVuls(ot);
@@ -129,7 +129,7 @@ const CSAFSearch = (props) => {
 
     useEffect(() => {
 
-	if (otVuls.length == 0) {
+	if (otVuls.length === 0) {
 	    getFeed();
 	}
 
@@ -201,7 +201,7 @@ const CSAFSearch = (props) => {
 		    <tr key={`vul-${index}`}>
 			<th>{vul.id}</th>
 			<th>{vul.type}</th>
-			<th><a href="#" onClick={(e)=>pullCSAF(vul.name)}>{vul.title}</a></th>
+			<th><a onClick={(e)=>pullCSAF(vul.name)}>{vul.title}</a></th>
 			<th>{vul.published}</th>
 			<th>{vul.updated}</th>
 		    </tr>

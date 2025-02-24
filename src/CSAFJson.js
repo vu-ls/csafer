@@ -1,23 +1,19 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useEffect} from 'react';
 //import CSAFContext from './CSAFContext';
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import cvssv3 from "./cvss-v3.0.json";
 import cvssv31 from "./cvss-v3.1.json";
 import cvssv2 from "./cvss-v2.0.json";
 import csaf_schema from "./csaf_json_schema.json";
 import Editor from '@monaco-editor/react';
-import axios from "axios";
-
-const globalSchemas = {};
 
 const CSAFJson = ({data, setData, update}) => {
 
     const [code, setCode] = useState(null);
     const [markers, setMarkers] = useState([]);
     const monacoRef = useRef(null);
-    const [displayError, setDisplayError] = useState({});
-    const [colCount, setColCount] = useState("12");
-
+    const [colCount, setColCount] = useState("9");
+    
     function handleEditorDidMount(editor, monaco) {
 	// here is another way to get monaco instance
 	// you can also store it in `useRef` for further usage
@@ -100,12 +96,9 @@ const CSAFJson = ({data, setData, update}) => {
 		<Button onClick={(e)=>resetData()} variant="danger">Reset Data</Button>
 	    </div>
 	    
-	    {displayError.status &&
-	     <div className="alert alert-danger"><b>{displayError.title}</b><br/>
-					     {displayError.description}</div>
-	    }
+
 	    <Row>
-		<Col lg="9" className="json-e">
+		<Col lg={colCount} className="json-e">
 		    <div className="csaf-editor d-flex h-full bg-white">
 			<Editor
 			    width="100%"

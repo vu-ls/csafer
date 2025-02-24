@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react'
-import {Card, Badge, Alert, DropdownButton, Dropdown, InputGroup, FloatingLabel, Form, Container, Row, Col, Tab, Tabs, Nav, Button} from 'react-bootstrap';
-import { isValid, parse, format, formatDistance } from 'date-fns';
+import React, { useState, useEffect } from 'react'
+import {Badge, Button} from 'react-bootstrap';
+import { format } from 'date-fns';
 
 
 const CSAFHtml = ({result}) => {
@@ -10,7 +10,7 @@ const CSAFHtml = ({result}) => {
     
     const getVulSummary = (vul) => {
 
-	let text = vul.notes.find((note) => note.category == "summary")
+	let text = vul.notes.find((note) => note.category === "summary")
 	if (text) {
 	    return text.text;
 	}
@@ -19,7 +19,7 @@ const CSAFHtml = ({result}) => {
 	
     const getSummary = () => {
 
-	let text = result.document.notes.find((note) => note.category == "summary")
+	let text = result.document.notes.find((note) => note.category === "summary")
 	if (text) {
 	    return text.text;
 	} else {
@@ -31,7 +31,7 @@ const CSAFHtml = ({result}) => {
     const showRemediations = (key) => {
 
 	if (remDisplay.includes(key)) {
-	    let newrem = remDisplay.filter(x => x != key);
+	    let newrem = remDisplay.filter(x => x !== key);
 	    setRemDisplay(newrem);
 	} else {
 	    setRemDisplay([...remDisplay, key]);
@@ -50,12 +50,12 @@ const CSAFHtml = ({result}) => {
     }
 
     const getProduct = (selected) => {
-	return products.find(p => p.id == selected);
+	return products.find(p => p.id === selected);
     }
 	
     const getSSVC = (vul) => {
 
-	let score = vul.notes.find((note) => note.title == "SSVC");
+	let score = vul.notes.find((note) => note.title === "SSVC");
 	if (score) {
 	    return score.text;
 	} else {
@@ -93,7 +93,7 @@ const CSAFHtml = ({result}) => {
 	    if (pt.category === "vendor") {
 		vendor = pt.name;
 		pt.branches.forEach(pn => {
-		    if (pn.category == "product_name") {
+		    if (pn.category === "product_name") {
 			product = pn.name;
 			pn.branches.forEach(pv => {
 			    version = pv.name;
@@ -126,7 +126,7 @@ const CSAFHtml = ({result}) => {
 	     <h1>{result.document.tracking.id}: {result.document.title}</h1>
 	     <hr/>
 		<p>Release Date: {formatDate(result.document.tracking.initial_release_date, 'yyyy-MM-dd')}</p>
-	     {result.document.tracking.current_release_date != result.document.tracking.initial_release_date &&
+	     {result.document.tracking.current_release_date !== result.document.tracking.initial_release_date &&
 	      <p>Last Revised: { formatDate(result.document.tracking.current_release_date, 'yyyy-MM-dd')}</p>
 	     }
 	     <h1>Summary</h1>

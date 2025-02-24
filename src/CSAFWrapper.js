@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react'
-import {Card, Badge, Alert, DropdownButton, Dropdown, InputGroup, FloatingLabel, Form, Container, Row, Col, Tab, Tabs, Nav, Button} from 'react-bootstrap';
-import { format, formatDistance } from 'date-fns';
+import React, { useState, useEffect } from 'react'
+import {Card, Tab, Nav} from 'react-bootstrap';
 import CSAFHtml from './CSAFHtml';
 import CSAFSearch from './CSAFSearch';
 import CSAFContext from './CSAFContext';
@@ -18,10 +17,11 @@ const CSAFWrapper = () => {
     const setActiveTabNow = (props) => {
         //window.history.pushState({}, '', `?activeTab=${props}`);
         setActiveTab(props);
-	
     }
 
 
+
+    
     function isJsonString(str) {
 	try {
             JSON.parse(str);
@@ -52,7 +52,7 @@ const CSAFWrapper = () => {
     const setJSONResult = (res) => {
 
 	setCode(res);
-	if (res != "") {
+	if (res !== "") {
 	    setResult(res);
 	    sessionStorage.setItem("csaf", JSON.stringify(res, null, '\t'));
 	}
@@ -81,7 +81,7 @@ const CSAFWrapper = () => {
 	if (data.document?.vulnerabilities.length > 0) {
 	    let myVuls = result.document.vulnerabilities.map(vul => {
 
-		let description = vul.notes?.find(note => note.category == "summary");
+		let description = vul.notes?.find(note => note.category === "summary");
 		if (!description) {
 		    description = vul.title;
 		} else {
@@ -93,7 +93,7 @@ const CSAFWrapper = () => {
 		    let cvss = Object.keys(score).filter(key => {
 			if (key.startsWith("cvss")) {
 			    let version = score[key].version;
-			    if (version == "3.1") {
+			    if (version === "3.1") {
 				return {CVSSV3_1:{
 				    baseScore: score[key].baseScore,
 				    severity: score[key].baseSeverity,
