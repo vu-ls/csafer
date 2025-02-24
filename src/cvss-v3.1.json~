@@ -1,0 +1,69 @@
+react refresh:6 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+CSAFJson.js:21 {}
+CSAFWrapper.js:30 in use effect
+CSAFWrapper.js:31 []
+CSAFWrapper.js:33 null
+CSAFWrapper.js:42 RESULT CHANGED!!!
+CSAFWrapper.js:43 {}
+CSAFWrapper.js:98 {}
+CSAFJson.js:21 {}
+CSAFWrapper.js:30 in use effect
+CSAFWrapper.js:31 []
+CSAFWrapper.js:33 null
+CSAFWrapper.js:42 RESULT CHANGED!!!
+CSAFWrapper.js:43 {}
+CSAFWrapper.js:98 {}
+CSAFJson.js:21 {}
+CSAFWrapper.js:42 RESULT CHANGED!!!
+CSAFWrapper.js:43 {}
+CSAFWrapper.js:98 {}
+CSAFJson.js:26 https://www.first.org/cvss/cvss-v2.0.json
+CSAFHtml.js:143 Warning: Each child in a list should have a unique "key" prop.
+
+Check the render method of `CSAFHtml`. See https://reactjs.org/link/warning-keys for more information.
+    at CSAFHtml (http://localhost:3001/static/js/bundle.js:1271:3)
+    at div
+    at Transition (http://localhost:3001/static/js/bundle.js:80654:30)
+    at http://localhost:3001/static/js/bundle.js:48423:3
+    at http://localhost:3001/static/js/bundle.js:45781:3
+    at http://localhost:3001/static/js/bundle.js:48097:3
+    at div
+    at http://localhost:3001/static/js/bundle.js:48046:3
+    at Tabs (http://localhost:3001/static/js/bundle.js:11973:9)
+    at TabContainer (http://localhost:3001/static/js/bundle.js:48011:3)
+    at div
+    at div
+    at http://localhost:3001/static/js/bundle.js:44298:3
+    at div
+    at div
+    at CSAFWrapper (http://localhost:3001/static/js/bundle.js:2827:84)
+    at div
+    at App
+printWarning @ react-jsx-dev-runtime.development.js:87
+error @ react-jsx-dev-runtime.development.js:61
+validateExplicitKey @ react-jsx-dev-runtime.development.js:1078
+validateChildKeys @ react-jsx-dev-runtime.development.js:1105
+jsxWithValidation @ react-jsx-dev-runtime.development.js:1277
+(anonymous) @ CSAFHtml.js:143
+CSAFHtml @ CSAFHtml.js:126
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performSyncWorkOnRoot @ react-dom.development.js:26124
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+CSAFJson.js:21 {document: {…}, product_tree: {…}, vulnerabilities: Array(9)}document: {category: 'csaf_vex', csaf_version: '2.0', lang: 'en-US', publisher: {…}, title: 'ECOVACS lawnmower and vacuum vulnerabilities', …}product_tree: {branches: Array(1)}vulnerabilities: (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}][[Prototype]]: Object
+CSAFHtml.js:98 (59) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+CSAFWrapper.js:42 RESULT CHANGED!!!
+CSAFWrapper.js:43 {document: {…}, product_tree: {…}, vulnerabilities: Array(9)}
+CSAFHtml.js:98 (59) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+CSAFJson.js:28 ReadableStream {locked: false}locked: false[[Prototype]]: ReadableStream
+CSAFJson.js:26 https://www.first.org/cvss/cvss-v3.0.json
+CSAFJson.js:28 ReadableStream {locked: false}locked: false[[Prototype]]: ReadableStream
+CSAFJson.js:26 https://www.first.org/cvss/cvss-v3.1.json
+CSAFJson.js:28 ReadableStream {locked: false}locked: false[[Prototype]]: ReadableStream
+CSAFJson.js:49 Errors [{…}]
