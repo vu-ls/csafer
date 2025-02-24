@@ -215,11 +215,11 @@ const CSAFHtml = ({result}) => {
 			      <h5>{getVectorString(vul).vectorString} Score: {getVectorString(vul).baseScore} <Badge bg="danger" pill>{getVectorString(vul).baseSeverity}</Badge></h5>
 			      <p>{vul.scores.map((score, idx) => {
 				  return (
-				      <React.Fragment key={`score-${idx}`}>
+				      <React.Fragment key={`vscore-${idx}`}>
 					  {Object.keys(score).forEach((x, i) => {
 				      
 					      return (
-						  <div key={`vul-score-${idx}-${i}`}>
+						  <div key={`metrics-${idx}-${i}`}>
 						      <p>CVSS version {score[x]["version"]}</p>
 						      <p>Vector: {score[x]["vectorString"]}</p>
 						      <p>Score: {score[x]["baseScore"]}</p>
@@ -245,7 +245,7 @@ const CSAFHtml = ({result}) => {
 			      <ul className="list-unstyled">
 			      {vul.references?.map((ref, index) => {
 				  return(
-				      <li key={`ref=${index}`} className="mb-2"><a target="_blank" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
+				      <li className="mb-2" key={`ref-${index}`}><a target="_blank" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
 				  )
 			      })}
 			      </ul>
@@ -259,12 +259,13 @@ const CSAFHtml = ({result}) => {
 		 <div className="mb-3">
 		     <h1>Acknowledgements</h1>
 		     <ul>
-		     {result.document.acknowledgments.map((ack, index) => (
-			 <li>Thanks to {ack.organization} for {ack.summary}</li>
-		     ))}
+			 {result.document.acknowledgments.map((ack, index) => (
+			     <li key={`doc-ack-${index}`}>Thanks to {ack.organization} for {ack.summary}</li>
+			 ))}
 		     </ul>
 		 </div>
 		}
+
 		<h1>Revision History</h1>
 	     <hr />
 	     <div className="mb-3">
