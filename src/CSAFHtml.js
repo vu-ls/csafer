@@ -142,7 +142,8 @@ const CSAFHtml = ({result}) => {
 			      <h2>{vul.cve}: {vul.title}</h2>
 			      <p>{summary}</p>
 			      <h4>Affected Products</h4>
-			      <table className="table striped w-100 mb-3">
+			      <div className="table-wrapper mb-3">
+			      <table className="table striped w-100">
 				  <thead>
 				  <tr>
 				      <th>Vendor</th>
@@ -191,9 +192,9 @@ const CSAFHtml = ({result}) => {
 							       <>
 								   {remediation.map((r, k) => (
 								       <tr key={`remediation-${index}-${idx}-${k}`} className={remDisplay.includes(`prod-${index}-${idx}`) ? "" : "hidden"}>
-									   <td colSpan="3"><Badge bg="primary" className="mx-2">{r.category}</Badge>{r.details}</td>
+									   <td colSpan="3"><Badge bg="primary" className="me-2">{r.category}</Badge>{r.details}</td>
 								
-									   <td colSpan="2"><a href={r.url} target="_blank">{r.url}</a>
+									   <td colSpan="2"><a href={r.url} target="_blank" rel="norefererrer">{r.url}</a>
 									   </td>
 								       </tr>
 								   ))}
@@ -208,6 +209,7 @@ const CSAFHtml = ({result}) => {
 				      ))}
 				  </tbody>
 			      </table>
+				  </div>
 			      <h4>Metrics</h4>
 			      <h5>Problem Types: {vul.cwe.id}: {vul.cwe.name}</h5>
 
@@ -245,7 +247,7 @@ const CSAFHtml = ({result}) => {
 			      <ul className="list-unstyled">
 			      {vul.references?.map((ref, index) => {
 				  return(
-				      <li className="mb-2" key={`ref-${index}`}><a target="_blank" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
+				      <li className="mb-2" key={`ref-${index}`}><a target="_blank" rel="noreferrer" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
 				  )
 			      })}
 			      </ul>
@@ -294,7 +296,7 @@ const CSAFHtml = ({result}) => {
 	     <ul className="list-unstyled">                                    
                  {result.document.references.map((ref, index) => {
                      return(
-                         <li key={`doc-ref-${index}`}><a target="_blank" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
+                         <li key={`doc-ref-${index}`}><a target="_blank" rel="noreferrer" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
                      )
                  })}                                                               
              </ul>  

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {useLocation} from 'react-router-dom';
 import {Card, Tab, Nav} from 'react-bootstrap';
 import CSAFHtml from './CSAFHtml';
 import CSAFSearch from './CSAFSearch';
@@ -7,20 +8,19 @@ import CSAFJson from './CSAFJson';
 
 const CSAFWrapper = () => {
 
-    const [activeTab, setActiveTab] = useState("mycsaf");
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const [activeTab, setActiveTab] = useState(searchParams.get('view') || "search");
     const [vuls, setVuls] = useState([]);
     const [components, setComponents] = useState([]);
     const [doc, setDoc] = useState({});
     const [result, setResult] = useState("");
     const [code, setCode] = useState({});
+    const [csaf, setCsaf] = useState("");
     
     const setActiveTabNow = (props) => {
-        //window.history.pushState({}, '', `?activeTab=${props}`);
         setActiveTab(props);
     }
-
-
-
     
     function isJsonString(str) {
 	try {
@@ -49,6 +49,22 @@ const CSAFWrapper = () => {
     }, [])
 
 
+    const setSelVul = (id) => {
+	setCsaf(id);
+    }
+
+
+    useEffect(() => {
+	if (csaf != "") {
+	    window.history.pushState({}, '', `?view=${activeTab}&id=${csaf}`);
+	} else {
+	    window.history.pushState({}, '', `?view=${activeTab}`);
+	}
+
+    }, [activeTab, csaf]);
+    
+    
+    
     const setJSONResult = (res) => {
 
 	setCode(res);
@@ -56,7 +72,8 @@ const CSAFWrapper = () => {
 	    setResult(res);
 	    sessionStorage.setItem("csaf", JSON.stringify(res, null, '\t'));
 	}
-	setActiveTab("html");
+	setActiveTabNow("html");
+	window.scrollTo(0, 0);
 
     }
     
@@ -219,7 +236,7 @@ const CSAFWrapper = () => {
 				<Nav.Link eventKey="components">Components</Nav.Link>
 				</Nav.Item>*/}
 			    <Nav.Item>
-				<Nav.Link eventKey="mycsaf">Advisories</Nav.Link>
+				<Nav.Link eventKey="search">Advisories</Nav.Link>
 			    </Nav.Item>
 			    <Nav.Item>
 				<Nav.Link eventKey="csaf">CSAF</Nav.Link>
@@ -243,9 +260,10 @@ const CSAFWrapper = () => {
 				<CSAFComponents />
 				</Tab.Pane> */}
 
-			    <Tab.Pane eventKey="mycsaf">
+			    <Tab.Pane eventKey="search">
 				<CSAFSearch
 				    setCSAF={setJSONResult}
+				    setSelected={setSelVul}
 				/>
 				
 			    </Tab.Pane>

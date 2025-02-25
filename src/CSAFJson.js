@@ -12,7 +12,7 @@ const CSAFJson = ({data, setData, update}) => {
     const [code, setCode] = useState(null);
     const [markers, setMarkers] = useState([]);
     const monacoRef = useRef(null);
-    const [colCount, setColCount] = useState("9");
+    const [colCount, setColCount] = useState("12");
     
     function handleEditorDidMount(editor, monaco) {
 	// here is another way to get monaco instance
