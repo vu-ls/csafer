@@ -92,14 +92,25 @@ const CSAFHtml = ({result}) => {
 	    /*vendor | product | version/range*/
 	    if (pt.category === "vendor") {
 		vendor = pt.name;
+		
 		pt.branches.forEach(pn => {
-		    if (pn.category === "product_name") {
+		    if (pn.category === "product_name" || pn.category === "product_family") {
 			product = pn.name;
 			pn.branches.forEach(pv => {
-			    version = pv.name;
-			    name = pv.product.name;
-			    prod_id = pv.product.product_id;
-			    temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
+			    /* if product_family there's another layer here */
+			    if (Array.isArray(pv.branches)) {
+				pv.branches.forEach(pc => {
+				    version = pc.name;
+                                    name = pc.product?.name;
+                                    prod_id = pc.product?.product_id;
+                                    temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
+				});
+			    } else {
+				version = pv.name;
+				name = pv.product?.name;
+				prod_id = pv.product?.product_id;
+				temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
+			    }
 			    
 			});
 		    }
