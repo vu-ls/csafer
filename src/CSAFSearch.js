@@ -224,7 +224,7 @@ const CSAFSearch = (props) => {
 
 	    </InputGroup>
 	    <div className="table-wrapper">
-	    <Table striped hover className="csafsearchtable">
+	    <Table hover className="csafsearchtable">
 		<thead>
 		    <tr>
 			<th width="170px">ID</th>

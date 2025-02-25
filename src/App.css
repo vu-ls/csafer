@@ -19,6 +19,7 @@
 
 tr.table-row.selected td {
     color: white !important;
+    background-color: var(--bs-primary) !important;
 }
 
 .table-row.selected:hover{
