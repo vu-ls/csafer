@@ -154,15 +154,15 @@ const CSAFHtml = ({result}) => {
 				  </tr>
 				      </thead>
 				  <tbody>
-				      {products.map((prod, index) => (
+				      {products.map((prod, pindex) => (
 					  
-					  <React.Fragment key={`prod-${index}`}>
+					  <React.Fragment key={`prod-${index}-${pindex}`}>
 					      {prod.products.map((pid, idx) => {
 						  let x = getProduct(pid);
 						  let remediation = getRemediation(vul, pid);
 						  if (x) {
 						      return (
-							  <React.Fragment key={`prod-${index}-${idx}`}>
+							  <React.Fragment key={`prod-${index}-${pindex}-${idx}`}>
 							      <tr>
 								  <td>{x.vendor}</td>
 								  <td>{x.product}</td>
@@ -172,10 +172,10 @@ const CSAFHtml = ({result}) => {
 								   <>
 								       <td>
 									   <Button
-									       onClick={(e)=>showRemediations(`prod-${index}-${idx}`)}
+									       onClick={(e)=>showRemediations(`prod-${index}-${pindex}-${idx}`)}
 									       size="sm"
 									       variant="primary"
-									   >{remDisplay.includes(`prod-${index}-${idx}`) ?
+									   >{remDisplay.includes(`prod-${index}-${pindex}-${idx}`) ?
 									     <>Hide Remediations <i className="fas fa-caret-up"></i></>
 									     :
 									     <>View Remediations <i className="fas fa-caret-down"></i></>
@@ -191,7 +191,7 @@ const CSAFHtml = ({result}) => {
 							      {remediation.length > 0 &&
 							       <>
 								   {remediation.map((r, k) => (
-								       <tr key={`remediation-${index}-${idx}-${k}`} className={remDisplay.includes(`prod-${index}-${idx}`) ? "" : "hidden"}>
+								       <tr key={`remediation-${index}-${pindex}-${idx}-${k}`} className={remDisplay.includes(`prod-${index}-${pindex}-${idx}`) ? "" : "hidden"}>
 									   <td colSpan="3"><Badge bg="primary" className="me-2">{r.category}</Badge>{r.details}</td>
 								
 									   <td colSpan="2"><a href={r.url} target="_blank" rel="norefererrer">{r.url}</a>
