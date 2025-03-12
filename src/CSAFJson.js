@@ -12,7 +12,7 @@ const CSAFJson = ({data, setData, update}) => {
     const [code, setCode] = useState(null);
     const [markers, setMarkers] = useState([]);
     const monacoRef = useRef(null);
-    const [colCount, setColCount] = useState("12");
+    const [colCount, setColCount] = useState("9");
     
     function handleEditorDidMount(editor, monaco) {
 	// here is another way to get monaco instance
@@ -61,15 +61,16 @@ const CSAFJson = ({data, setData, update}) => {
     function handleEditorValidation(markers) {
 
 	// model markers
-	if (Object.keys(data) > 0 && code) {
+	if (code !== "{}") {
 	    markers.forEach((marker) => console.log('onValidate:', marker));
 	    setMarkers(markers);
-	
+	    /*
 	    if (markers.length > 0) {
 		setColCount("9");
 	    } else {
 		setColCount("12");
-	    }
+		}
+		*/
 	}
     }
     
