@@ -55,7 +55,7 @@ const CSAFWrapper = () => {
 
 
     useEffect(() => {
-	if (csaf != "") {
+	if (csaf !== "") {
 	    window.history.pushState({}, '', `?view=${activeTab}&id=${csaf}`);
 	} else {
 	    window.history.pushState({}, '', `?view=${activeTab}`);

@@ -59,20 +59,22 @@ const CSAFJson = ({data, setData, update}) => {
 
 
     function handleEditorValidation(markers) {
+
 	// model markers
-	markers.forEach((marker) => console.log('onValidate:', marker));
-	setMarkers(markers);
-	console.log(markers.length);
-	if (markers.length > 0) {
-	    setColCount("9");
-	} else {
-	    setColCount("12");
+	if (Object.keys(data) > 0 && code) {
+	    markers.forEach((marker) => console.log('onValidate:', marker));
+	    setMarkers(markers);
+	
+	    if (markers.length > 0) {
+		setColCount("9");
+	    } else {
+		setColCount("12");
+	    }
 	}
     }
     
     function handleEditorChange(value, event) {
 
-	console.log(value);
 	setCode(value);
 	try {
 	    let rs = JSON.parse(value);
@@ -85,6 +87,8 @@ const CSAFJson = ({data, setData, update}) => {
     const resetData = () => {
 	setCode("");
 	setData({});
+	setColCount("12");
+	setMarkers([]);
     }
 
     

@@ -14,7 +14,6 @@ const CSAFSearch = (props) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const [searchVal, setSearchVal] = useState("");
-    const [isInvalid, setIsInvalid] = useState(false);
     const [selected, setSelected] = useState(searchParams.get('id') || "");
     const [otVuls, setOtVuls] = useState([]);
     const [itVuls, setItVuls] = useState([]);
@@ -61,7 +60,7 @@ const CSAFSearch = (props) => {
 	}
 
 	if (otVuls.length > 0 && searchParams.get('id')) {
-	    let sel = otVuls.find(vu => vu.id == searchParams.get('id'));
+	    let sel = otVuls.find(vu => vu.id === searchParams.get('id'));
 	    if (sel) {
 		pullCSAF(null, sel);
 	    }
@@ -206,7 +205,6 @@ const CSAFSearch = (props) => {
                     aria-label="Search Advisoriess"
                     aria-describedby="searchcves"
                     value={searchVal}
-                    isInvalid={isInvalid}
                     onChange={(e) =>
 			setSearchVal(e.target.value)
                     }

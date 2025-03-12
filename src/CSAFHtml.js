@@ -50,6 +50,11 @@ const CSAFHtml = ({result}) => {
     }
 
     const getProduct = (selected) => {
+	if (selected.includes(":")) {
+	    let newprodid = selected.split(/:(.*)/s)
+	    return products.find(p => p.id === newprodid[1]);
+	}
+	
 	return products.find(p => p.id === selected);
     }
 	
@@ -65,7 +70,7 @@ const CSAFHtml = ({result}) => {
 	
     const getVectorString = (vul) => {
 	let cvss = {};
-	vul.scores.forEach(x => {
+	vul.scores?.forEach(x => {
 	    if (Object.keys(x).includes("cvss_v3")) {
 		cvss = x["cvss_v3"];
 	    }
@@ -76,7 +81,7 @@ const CSAFHtml = ({result}) => {
 
     const getRemediation = (vul, pid) => {
 	
-	let remediations = vul.remediations.filter(r => r.product_ids.includes(pid));
+	let remediations = vul.remediations?.filter(r => r.product_ids.includes(pid));
 	return remediations;
     }
 
@@ -92,29 +97,41 @@ const CSAFHtml = ({result}) => {
 	    /*vendor | product | version/range*/
 	    if (pt.category === "vendor") {
 		vendor = pt.name;
-		
-		pt.branches.forEach(pn => {
-		    if (pn.category === "product_name" || pn.category === "product_family") {
+		if ("branches" in pt) {
+		pt.branches?.forEach(pn => {
+		    if (pn.category === "product_name" || pn.category === "product_family" || pn.category === "architecture") {
 			product = pn.name;
-			pn.branches.forEach(pv => {
-			    /* if product_family there's another layer here */
-			    if (Array.isArray(pv.branches)) {
-				pv.branches.forEach(pc => {
-				    version = pc.name;
-                                    name = pc.product?.name;
-                                    prod_id = pc.product?.product_id;
-                                    temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
-				});
-			    } else {
-				version = pv.name;
-				name = pv.product?.name;
-				prod_id = pv.product?.product_id;
-				temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
-			    }
+			if ("branches" in pn) {
+			    pn.branches?.forEach(pv => {
+				/* if product_family there's another layer here */
+				if (Array.isArray(pv.branches)) {
+				    pv.branches.forEach(pc => {
+					version = pc.name;
+					name = pc.product?.name;
+					prod_id = pc.product?.product_id;
+					temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
+				    });
+				} else {
+				    version = pv.name;
+				    name = pv.product?.name;
+				    prod_id = pv.product?.product_id;
+				    temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
+				}
 			    
-			});
-		    }
+			    });
+			} 
+
+		    } 
+		    
 		});
+		} else {
+		    /* no further info */
+		    version = "";
+                    name = pt.product?.name;
+                    prod_id = pt.product?.product_id;
+		    temp_prod.push({id: prod_id, name: name, version: version, product: product, vendor: vendor});
+		}
+		    
 	    }
 	});
 	setProducts(temp_prod);
@@ -133,7 +150,9 @@ const CSAFHtml = ({result}) => {
     return (
 	result?.document &&
 	    <div className="content-form">
-		<h4>TLP: {result.document.distribution.tlp.label}</h4>
+		{result.document.distribution?.tlp &&
+		 <h4>TLP: {result.document.distribution.tlp.label}</h4>
+		}
 	     <h1>{result.document.tracking.id}: {result.document.title}</h1>
 	     <hr/>
 		<p>Release Date: {formatDate(result.document.tracking.initial_release_date, 'yyyy-MM-dd')}</p>
@@ -179,7 +198,7 @@ const CSAFHtml = ({result}) => {
 								  <td>{x.product}</td>
 								  <td>{x.version}</td>
 								  <td>{prod.status}</td>
-								  {remediation.length > 0 ?
+								  {remediation?.length > 0 ?
 								   <>
 								       <td>
 									   <Button
@@ -199,7 +218,7 @@ const CSAFHtml = ({result}) => {
 								   <td></td>
 								  }
 							      </tr>
-							      {remediation.length > 0 &&
+							      {remediation?.length > 0 &&
 							       <>
 								   {remediation.map((r, k) => (
 								       <tr key={`remediation-${index}-${pindex}-${idx}-${k}`} className={remDisplay.includes(`prod-${index}-${pindex}-${idx}`) ? "" : "hidden"}>
@@ -222,23 +241,28 @@ const CSAFHtml = ({result}) => {
 			      </table>
 				  </div>
 			      <h4>Metrics</h4>
-			      <h5>Problem Types: {vul.cwe.id}: {vul.cwe.name}</h5>
+			      {vul.cwe &&
+			       <h5>Problem Types: {vul.cwe?.id}: {vul.cwe?.name}</h5>
+			      }
 
 			      <h5>{getSSVC(vul)}</h5>
 			      <h5>{getVectorString(vul).vectorString} Score: {getVectorString(vul).baseScore} <Badge bg="danger" pill>{getVectorString(vul).baseSeverity}</Badge></h5>
-			      <p>{vul.scores.map((score, idx) => {
+			      <p>{vul.scores?.map((score, idx) => {
 				  return (
 				      <React.Fragment key={`vscore-${idx}`}>
-					  {Object.keys(score).forEach((x, i) => {
-				      
-					      return (
-						  <div key={`metrics-${idx}-${i}`}>
-						      <p>CVSS version {score[x]["version"]}</p>
-						      <p>Vector: {score[x]["vectorString"]}</p>
-						      <p>Score: {score[x]["baseScore"]}</p>
-						      <p>Severity: {score[x]["baseSeverity"]}</p>
-						  </div>
-					      )
+					  {Object.keys(score).map((x, i) => {
+					      if (x.includes("cvss")) {
+						  return (
+						      <div key={`metrics-${idx}-${i}`}>
+							  <p className="mb-0">CVSS version {score[x]["version"]}</p>
+							  <p className="mb-0">Vector: {score[x]["vectorString"]}</p>
+							  <p className="mb-0">Score: {score[x]["baseScore"]}</p>
+							  {score[x]["baseSeverity"] &&
+							   <p className="mb-0">Severity: {score[x]["baseSeverity"]}</p>
+							  }
+						      </div>
+						  )
+					      }
 					  })}
 				      </React.Fragment>
 				  )})}
