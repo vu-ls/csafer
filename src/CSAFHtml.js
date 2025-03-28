@@ -324,18 +324,21 @@ const CSAFHtml = ({result}) => {
 		     ))}
 		 </tbody>
 	     </table>
-		 </div>
-	     <h1>References</h1>
-	     <hr/>
-
-	     <ul className="list-unstyled">                                    
-                 {result.document.references.map((ref, index) => {
-                     return(
-                         <li key={`doc-ref-${index}`}><a target="_blank" rel="noreferrer" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
-                     )
-                 })}                                                               
-             </ul>  
-	     
+	     </div>
+		{result.document.references?.length > 0 &&
+		 <>
+		 <h1>References</h1>
+		 <hr/>
+		 
+		 <ul className="list-unstyled">                                    
+                     {result.document.references?.map((ref, index) => {
+			 return(
+                             <li key={`doc-ref-${index}`}><a target="_blank" rel="noreferrer" href={ref.url}>{ref.url}</a> <Badge pill bg="primary">{ref.category}</Badge></li>
+			 )
+                     })}                                                               
+		 </ul>
+		     </>
+		}
 	     
 	     
 	 </div>
