@@ -169,7 +169,7 @@ const CSAFHtml = ({result}) => {
 		      let products = getAffectedProducts(vul);
 		      return (
 			  <div key={`vul-${index}`} className="mb-3 border-bottom">
-			      <h2>{vul.cve}: {vul.title}</h2>
+			      <h2><a href={`https://www.cve.org/CVERecord?id=${vul.cve}`} target="_blank" rel="noopener">{vul.cve}</a>{vul.title && `: ${vul.title}`}</h2>
 			      <p>{summary}</p>
 			      <h4>Affected Products</h4>
 			      <div className="table-wrapper mb-3">
