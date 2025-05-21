@@ -19,7 +19,7 @@ const CSAFHtml = ({result}) => {
 	
     const getSummary = () => {
 
-	let text = result.document.notes.find((note) => note.category === "summary")
+	let text = result.document.notes?.find((note) => note.category === "summary")
 	if (text) {
 	    return text.text;
 	} else {
