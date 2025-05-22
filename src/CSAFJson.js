@@ -77,6 +77,7 @@ const CSAFJson = ({data, setData, update}) => {
     function handleEditorChange(value, event) {
 
 	setCode(value);
+
 	try {
 	    let rs = JSON.parse(value);
 	    setData(rs);
@@ -88,7 +89,7 @@ const CSAFJson = ({data, setData, update}) => {
     const resetData = () => {
 	setCode("");
 	setData({});
-	setColCount("12");
+	setColCount("9");
 	setMarkers([]);
     }
 
@@ -110,6 +111,7 @@ const CSAFJson = ({data, setData, update}) => {
 			    height="100%"
 			    theme="vs-white"
 			    defaultLanguage="json"
+			    automaticLayout={false}
 			    value={code}
 			    defaultValue=""
 			    onChange={handleEditorChange}
