@@ -74,6 +74,13 @@ const CSAFSearch = (props) => {
 	if (itVuls.length > 0) {
             setFilteredItems(prevArray => prevArray.concat(itVuls));
 	}
+	
+	if (itVuls.length > 0 && searchParams.get('id')) {
+	    let sel = itVuls.find(vu => vu.id === searchParams.get('id'));
+	    if (sel) {
+		pullCSAF(null, sel);
+	    }
+	}
 
     }, [itVuls]);
 
