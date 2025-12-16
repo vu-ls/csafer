@@ -1,3 +1,4 @@
+import React from "react";
 import './App.css';
 import './core.css';
 import './theme-default.css';
