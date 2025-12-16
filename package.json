@@ -19,7 +19,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "deploy-test": "gh-pages -d dist -b gh-pages-test",
     "start": "webpack serve --mode development --open",
     "build": "webpack --mode production"
