@@ -5,10 +5,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     entry: path.join(__dirname, "src", "index.js"),
     output: {
-      path:path.resolve(__dirname, "dist"),
-      publicPath:"/csafer/"
+	path:path.resolve(__dirname, "dist"),
+	publicPath:"/csafer/",
+	filename: 'bundle.js'
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -45,6 +47,6 @@ module.exports = {
         ]
       },
   devServer: {
-    port: 3000,
-  },
+      port: 3000,
+  }
 };
